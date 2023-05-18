@@ -3,10 +3,10 @@ name: 'F´ Project Builder Reusable Workflow'
 on:
   workflow_call:
     inputs:
-      project_location:
-        required: true
+      build_location:
+        description: "The location to build in. E.g. MyDeployment/"
         type: string
-        description: "The location of the project to build"
+        required: true
       run_unit_tests:
         description: "Whether to run Unit Tests"
         type: boolean
@@ -42,7 +42,7 @@ jobs:
           pip3 install -r ${{ inputs.fprime_location }}/requirements.txt
         shell: bash
       - name: "Build Project"
-        working-directory: ${{ inputs.project_location }}
+        working-directory: ${{ inputs.build_location }}
         run: |
           fprime-util generate
           fprime-util build
@@ -67,7 +67,7 @@ jobs:
           pip3 install -r ${{ inputs.fprime_location }}/requirements.txt
         shell: bash
       - name: "Buld and Run Unit Tests"
-        working-directory: ${{ inputs.project_location }}
+        working-directory: ${{ inputs.build_location }}
         run: |
           fprime-util generate --ut
           fprime-util build --ut
