@@ -1,23 +1,24 @@
 name: 'F´ Project Builder Action'
 description: 'Build and Test F´ Projects in CI'
 author: 'F´'
+
 inputs:
+  build_location:
+    description: "The location to build in. E.g. MyDeployment/"
+    required: true
   run_unit_tests:
     description: "Whether to run Unit Tests"
     required: false
     default: "true"
-  project_location:
-    required: false
-    description: "The location of the project to build"
-    default: $GITHUB_WORKSPACE
   fprime_version:
     required: false
     description: "F´ version to use. Defaults to project submodule version."
     default: ""
   fprime_location:
     required: false
-    description: "Relative path from project_location to F´ submodule"
-    default: "fprime"
+    description: "Relative path from project root to F´ submodule"
+    default: "./fprime"
+
 runs:
   using: "composite"
   steps:
@@ -27,15 +28,15 @@ runs:
         git checkout ${{ inputs.fprime_version }}
       shell: bash
     - run: |
-        pip3 install -r ${{ inputs.project_location }}/${{ inputs.fprime_location }}/requirements.txt
+        pip3 install -r ${{ inputs.fprime_location }}/requirements.txt
       shell: bash
-    - working-directory: ${{ inputs.project_location }}
+    - working-directory: ${{ inputs.build_location }}
       run: |
         fprime-util generate
         fprime-util build
       shell: bash
     - if: ${{ inputs.run_unit_tests }} == "true"
-      working-directory: ${{ inputs.project_location }}
+      working-directory: ${{ inputs.build_location }}
       run: |
         fprime-util generate --ut
         fprime-util build --ut
