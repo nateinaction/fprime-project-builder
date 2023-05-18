@@ -27,7 +27,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: "Build F´ Project"
-  
     steps:
       - uses: actions/checkout@v3
         with:
@@ -48,8 +47,26 @@ jobs:
           fprime-util generate
           fprime-util build
         shell: bash
-      - if: ${{ inputs.run_unit_tests }} == "true"
-        name: "Run Unit Tests"
+
+  runUT:
+    if: ${{ inputs.run_unit_tests }} == "true"
+    runs-on: ubuntu-latest
+    name: "Run Unit Tests"
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - if: ${{ inputs.fprime_version }} != ""
+        name: "Checkout F´ Version"
+        run: |
+          cd ${{ inputs.fprime_location }}
+          git checkout ${{ inputs.fprime_version }}
+        shell: bash
+      - name: "Install requirements.txt"
+        run: |
+          pip3 install -r ${{ inputs.fprime_location }}/requirements.txt
+        shell: bash
+      - name: "Buld and Run Unit Tests"
         working-directory: ${{ inputs.project_location }}
         run: |
           fprime-util generate --ut

@@ -22,8 +22,8 @@ runs:
   using: "composite"
   steps:
     - if: ${{ inputs.fprime_version }} != ""
-      working-directory: ${{ inputs.project_location }}/${{ inputs.fprime_location }}
       run: |
+        cd ${{ inputs.fprime_location }}
         git checkout ${{ inputs.fprime_version }}
       shell: bash
     - run: |
