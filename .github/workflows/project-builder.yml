@@ -1,0 +1,59 @@
+name: 'F´ Project Builder Reusable Workflow'
+
+on:
+  workflow_call:
+    inputs:
+      project_location:
+        required: true
+        type: string
+        description: "The location of the project to build"
+      run_unit_tests:
+        description: "Whether to run Unit Tests"
+        type: boolean
+        required: false
+        default: true
+      fprime_version:
+        required: false
+        type: string
+        description: "F´ version to use. Defaults to project submodule version."
+        default: ""
+      fprime_location:
+        required: false
+        type: string
+        description: "Relative path from project root to F´ submodule"
+        default: "./fprime"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: "Build F´ Project"
+  
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - if: ${{ inputs.fprime_version }} != ""
+        name: "Checkout F´ Version"
+        run: |
+          cd ${{ inputs.fprime_location }}
+          git checkout ${{ inputs.fprime_version }}
+        shell: bash
+      - name: "Install requirements.txt"
+        run: |
+          pip3 install -r ${{ inputs.fprime_location }}/requirements.txt
+        shell: bash
+      - name: "Build Project"
+        working-directory: ${{ inputs.project_location }}
+        run: |
+          fprime-util generate
+          fprime-util build
+        shell: bash
+      - if: ${{ inputs.run_unit_tests }} == "true"
+        name: "Run Unit Tests"
+        working-directory: ${{ inputs.project_location }}
+        run: |
+          fprime-util generate --ut
+          fprime-util build --ut
+          fprime-util check
+        shell: bash
+
