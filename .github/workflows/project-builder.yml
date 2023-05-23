@@ -22,7 +22,7 @@ on:
         type: string
         description: "Relative path from project root to F´ submodule"
         default: "./fprime"
-      post_script:
+      postbuild_script:
           required: false
           type: string
           description: "Optional script to run after build"
@@ -52,9 +52,9 @@ jobs:
           fprime-util generate
           fprime-util build
         shell: bash
-      - if: ${{ inputs.post_script }} != ""
+      - if: ${{ inputs.postbuild_script }} != ""
         name: "Run Post Script"
-        run: ./${{ inputs.post_script }}
+        run: ./${{ inputs.postbuild_script }}
         shell: bash
 
   runUT:
