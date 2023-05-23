@@ -18,6 +18,7 @@ _Note: Both the Composite Action and the Reusable Workflow take the same input_
 | run_unit_tests  | `true`        | Whether to run Unit Tests|
 | fprime_version  |               | F´ version to use (branch or tag). Defaults to the version pointed to by the project submodule.|
 | fprime_location | `./fprime`    | Relative path from project root to F´ submodule|
+| post_script     |               | Optional script to run after build|
 
 
 ## Workflow Example

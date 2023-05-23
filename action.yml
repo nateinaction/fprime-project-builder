@@ -18,6 +18,10 @@ inputs:
     required: false
     description: "Relative path from project root to F´ submodule"
     default: "./fprime"
+  post_script:
+    required: false
+    description: "Optional script to run after build"
+    default: ""
 
 runs:
   using: "composite"
@@ -41,5 +45,8 @@ runs:
         fprime-util generate --ut
         fprime-util build --ut
         fprime-util check
+      shell: bash
+    - if: ${{ inputs.post_script }} != ""
+      run: ./${{ inputs.post_script }} 
       shell: bash
 
