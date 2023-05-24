@@ -25,7 +25,7 @@ _Note: Both the Composite Action and the Reusable Workflow take the same input_
 
 ### Using the Reusable Workflow
 
-```
+```yaml
 name: Builder Workflow (Reusable Workflow)
 
 on: [push, pull_request]
@@ -41,7 +41,7 @@ jobs:
 
 ### Using the Action
 
-```
+```yaml
 name: Builder Workflow (Composite Action)
 
 on: [push, pull_request]
