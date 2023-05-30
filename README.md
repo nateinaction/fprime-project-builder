@@ -12,13 +12,13 @@ Choosing between using the reusable workflow or composite action can be a matter
 
 _Note: Both the Composite Action and the Reusable Workflow take the same input_
 
-| input           | default       | description               |
-|-----------------|---------------|---------------------------|
-| build_location  |               | **Required:** The location to build in. For example: `MyDeployment/`|
-| run_unit_tests  | `true`        | Whether to run Unit Tests|
-| fprime_version  |               | F´ version to use (branch or tag). Defaults to the version pointed to by the project submodule.|
-| fprime_location | `./fprime`    | Relative path from project root to F´ submodule|
-| runs_on         |               | Platform to run on. Defaults to ubuntu-latest|
+| input           | default        | description               |
+|-----------------|----------------|---------------------------|
+| build_location  |                | **Required:** The location to build in. For example: `MyDeployment/`|
+| run_unit_tests  | `true`         | Whether to run Unit Tests|
+| fprime_version  |                | F´ version to use (branch or tag). Defaults to the version pointed to by the project submodule.|
+| fprime_location | `./fprime`     | Relative path from project root to F´ submodule|
+| runs_on         | `ubuntu-latest`| Platform to run on. Defaults to ubuntu-latest|
 
 
 ## Workflow Example
