@@ -4,12 +4,8 @@ author: 'F´'
 
 inputs:
   build_location:
-    description: "The location to build in. E.g. MyDeployment/"
+    description: "Path to F´ module to build. E.g. MyDeployment/"
     required: true
-  run_unit_tests:
-    description: "Whether to run Unit Tests"
-    required: false
-    default: "true"
   fprime_version:
     required: false
     description: "F´ version to use. Defaults to project submodule version."
@@ -18,10 +14,10 @@ inputs:
     required: false
     description: "Relative path from project root to F´ submodule"
     default: "./fprime"
-  postbuild_script:
+  run_unit_tests:
+    description: "Run a Unit Test build (--ut) instead of a normal build [true|false] (default: false)"
     required: false
-    description: "Optional script to run after build"
-    default: ""
+    default: "false"
 
 runs:
   using: "composite"
@@ -34,7 +30,8 @@ runs:
     - run: |
         pip3 install -r ${{ inputs.fprime_location }}/requirements.txt
       shell: bash
-    - working-directory: ${{ inputs.build_location }}
+    - if: ${{ inputs.run_unit_tests }} == "false"
+      working-directory: ${{ inputs.build_location }}
       run: |
         fprime-util generate
         fprime-util build
@@ -45,8 +42,5 @@ runs:
         fprime-util generate --ut
         fprime-util build --ut
         fprime-util check
-      shell: bash
-    - if: ${{ inputs.postbuild_script }} != ""
-      run: ./${{ inputs.postbuild_script }} 
       shell: bash
 
