@@ -10,7 +10,7 @@ Choosing between using the reusable workflow or composite action can be a matter
 
 ## Inputs
 
-_Note: Both the Composite Action and the Reusable Workflow take the same input_
+**Note**: Both the Composite Action and the Reusable Workflow take the same input
 
 | input           | default        | description               |
 |-----------------|----------------|---------------------------|
