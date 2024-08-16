@@ -18,6 +18,10 @@ inputs:
     description: "Run a Unit Test build (--ut) instead of a normal build [true|false] (default: false)"
     required: false
     default: "false"
+  target_platform:
+    description: "F´ build platform (e.g. Linux, Darwin). Default specified in settings.ini."
+    required: false
+    default: ""
 
 runs:
   using: "composite"
@@ -33,14 +37,14 @@ runs:
     - if: ${{ inputs.run_unit_tests }} == "false"
       working-directory: ${{ inputs.build_location }}
       run: |
-        fprime-util generate
-        fprime-util build
+        fprime-util generate ${{ inputs.target_platform }}
+        fprime-util build ${{ inputs.target_platform }}
       shell: bash
     - if: ${{ inputs.run_unit_tests }} == "true"
       working-directory: ${{ inputs.build_location }}
       run: |
-        fprime-util generate --ut
-        fprime-util build --ut
-        fprime-util check
+        fprime-util generate --ut ${{ inputs.target_platform }}
+        fprime-util build --ut ${{ inputs.target_platform }}
+        fprime-util check ${{ inputs.target_platform }}
       shell: bash
 

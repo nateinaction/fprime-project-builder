@@ -19,6 +19,7 @@ Choosing between using the reusable workflow or composite action can be a matter
 | fprime_version  |                | F´ version to use (branch or tag). Defaults to the version pointed to by the project submodule.|
 | fprime_location | `./fprime`     | Relative path from project root to F´ submodule|
 | runs_on         | `ubuntu-latest`| Platform to run on. Defaults to ubuntu-latest|
+| target_platform |                | F´ build platform (e.g. Linux, Darwin). Default specified in settings.ini.|
 
 
 ## Workflow Example

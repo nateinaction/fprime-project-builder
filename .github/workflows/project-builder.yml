@@ -22,6 +22,11 @@ on:
         type: string
         description: "Relative path from project root to F´ submodule"
         default: "./fprime"
+      target_platform:
+        required: false
+        type: string
+        description: "F´ build platform (e.g. Linux, Darwin). Default specified in settings.ini."
+        default: ""
       runs_on:
         required: false
         type: string
