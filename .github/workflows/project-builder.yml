@@ -84,16 +84,16 @@ jobs:
       - name: "Generate UT build cache"
         working-directory: ${{ inputs.build_location }}
         run: |
-          fprime-util generate --ut ${{ runner.debug == '1' && '--verbose' || '' }} ${{ inputs.target_platform }}
+          fprime-util generate --ut ${{ runner.debug == '1' && '--verbose' || '' }}
         shell: bash
       - name: "Build UTs"
         working-directory: ${{ inputs.build_location }}
         run: |
-          fprime-util build --ut ${{ runner.debug == '1' && '--verbose' || '' }} ${{ inputs.target_platform }}
+          fprime-util build --ut ${{ runner.debug == '1' && '--verbose' || '' }}
         shell: bash
       - name: "Run Unit Tests"
         working-directory: ${{ inputs.build_location }}
         run: |
-          fprime-util check ${{ runner.debug == '1' && '--verbose' || '' }} ${{ inputs.target_platform }}
+          fprime-util check ${{ runner.debug == '1' && '--verbose' || '' }}
         shell: bash
 

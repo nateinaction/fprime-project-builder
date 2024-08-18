@@ -43,8 +43,8 @@ runs:
     - if: ${{ inputs.run_unit_tests }} == "true"
       working-directory: ${{ inputs.build_location }}
       run: |
-        fprime-util generate --ut ${{ inputs.target_platform }}
-        fprime-util build --ut ${{ inputs.target_platform }}
-        fprime-util check ${{ inputs.target_platform }}
+        fprime-util generate --ut
+        fprime-util build --ut
+        fprime-util check
       shell: bash
 
