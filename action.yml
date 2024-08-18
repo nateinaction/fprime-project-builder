@@ -26,7 +26,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - if: ${{ inputs.fprime_version }} != ""
+    - if: inputs.fprime_version != ""
       run: |
         cd ${{ inputs.fprime_location }}
         git checkout ${{ inputs.fprime_version }}
@@ -34,13 +34,13 @@ runs:
     - run: |
         pip3 install -r ${{ inputs.fprime_location }}/requirements.txt
       shell: bash
-    - if: ${{ inputs.run_unit_tests }} == "false"
+    - if: inputs.run_unit_tests == "false"
       working-directory: ${{ inputs.build_location }}
       run: |
         fprime-util generate ${{ inputs.target_platform }}
         fprime-util build ${{ inputs.target_platform }}
       shell: bash
-    - if: ${{ inputs.run_unit_tests }} == "true"
+    - if: inputs.run_unit_tests == "true"
       working-directory: ${{ inputs.build_location }}
       run: |
         fprime-util generate --ut
